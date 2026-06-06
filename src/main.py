@@ -12,7 +12,7 @@ def main() -> None:
     while True:
         print("-------------")
         print("1. Load Data")
-        print("2. Display All Health Records")
+        print("2. Display All Health Records without header row")
         print("3. Display Average, Maximum, and Minimum Blood Pressure (Systolic and Diastolic) for the Entire Period")
         print("4. Display Average, Maximum, and Minimum Weight for the Entire Period")
         print("5. Display Summary by Morning/Evening")
@@ -29,7 +29,7 @@ def main() -> None:
             else:
                 'Display all health records'
                 for index, record in enumerate(data):
-                    print(f"Index: {index + 1}, Date: {record['date']}, Time: {record['time']}, Period: {record['period']}, Systolic: {record['systolic']}, Diastolic: {record['diastolic']}, Weight: {record['weight']}")
+                    print(f"Record index: {index + 1}, Date: {record['date']}, Time: {record['time']}, Period: {record['period']}, Systolic: {record['systolic']}, Diastolic: {record['diastolic']}, Weight: {record['weight']}")
                 print(f"Record count: {len(data)}")
                 continue
         elif menu_number == "3":

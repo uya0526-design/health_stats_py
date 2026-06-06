@@ -14,28 +14,28 @@ def load_data(file_path: str) -> list[dict]:
             return_data = []
             for index, row in enumerate(data):
                 if len(required_columns.difference(row.keys())) > 0:
-                    print(f"Required columns are missing at line {index + 1}")
+                    print(f"Required columns are missing at record {index + 1}")
                     continue
                 if 'systolic' in row:
                     try:
                         row['systolic'] = int(row['systolic'])
                     except ValueError:
-                        print(f"Error converting numerical value(systolic) at line {index + 1}")
+                        print(f"Error converting numerical value(systolic) at record {index + 1}")
                         continue
                 if 'diastolic' in row:
                     try:
                         row['diastolic'] = int(row['diastolic'])
                     except ValueError:
-                        print(f"Error converting numerical value(diastolic) at line {index + 1}")
+                        print(f"Error converting numerical value(diastolic) at record {index + 1}")
                         continue
                 if 'weight' in row:
                     try:
                         row['weight'] = float(row['weight'])
                     except ValueError:
-                        print(f"Error converting numerical value(weight) at line {index + 1}")
+                        print(f"Error converting numerical value(weight) at record {index + 1}")
                         continue
                 if 'period' in row and row['period'] not in ['morning', 'evening']:
-                    print(f"Invalid period: {row['period']} at line {index + 1}")
+                    print(f"Invalid period: {row['period']} at record {index + 1}")
                     continue
                 return_data.append(row)
             return return_data

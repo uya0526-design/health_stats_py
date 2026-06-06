@@ -69,8 +69,8 @@ def test_load_data_when_data_is_imported_correctly(capsys, monkeypatch):
     data = calc.load_data('data/health_data.csv')
     assert data == [fake_data[2]]
     out = capsys.readouterr().out
-    assert "Error converting numerical value(systolic) at line 1" in out
-    assert "Invalid period: night at line 2" in out
+    assert "Error converting numerical value(systolic) at record 1" in out
+    assert "Invalid period: night at record 2" in out
 
 def test_load_data_when_required_column_does_not_exist(capsys, monkeypatch):
     '''When a required column does not exist'''
@@ -87,7 +87,7 @@ def test_load_data_when_required_column_does_not_exist(capsys, monkeypatch):
     FakeDictReader.set_test_data(fake_data)
     monkeypatch.setattr('csv.DictReader', FakeDictReader)
     data = calc.load_data('data/health_data.csv')
-    assert "Required columns are missing at line 1" in capsys.readouterr().out
+    assert "Required columns are missing at record 1" in capsys.readouterr().out
     assert len(data) == 0
 
 def test_load_data_when_systolic_cannot_be_converted_to_int(capsys, monkeypatch):
@@ -105,7 +105,7 @@ def test_load_data_when_systolic_cannot_be_converted_to_int(capsys, monkeypatch)
     FakeDictReader.set_test_data(fake_data)
     monkeypatch.setattr('csv.DictReader', FakeDictReader)
     data = calc.load_data('data/health_data.csv')
-    assert "Error converting numerical value(systolic) at line 1" in capsys.readouterr().out
+    assert "Error converting numerical value(systolic) at record 1" in capsys.readouterr().out
     assert len(data) == 0
 
 def test_load_data_when_diastolic_cannot_be_converted_to_int(capsys, monkeypatch):
@@ -123,7 +123,7 @@ def test_load_data_when_diastolic_cannot_be_converted_to_int(capsys, monkeypatch
     FakeDictReader.set_test_data(fake_data)
     monkeypatch.setattr('csv.DictReader', FakeDictReader)
     data = calc.load_data('data/health_data.csv')
-    assert "Error converting numerical value(diastolic) at line 1" in capsys.readouterr().out
+    assert "Error converting numerical value(diastolic) at record 1" in capsys.readouterr().out
     assert len(data) == 0
 
 def test_load_data_when_weight_cannot_be_converted_to_float(capsys, monkeypatch):
@@ -141,7 +141,7 @@ def test_load_data_when_weight_cannot_be_converted_to_float(capsys, monkeypatch)
     FakeDictReader.set_test_data(fake_data)
     monkeypatch.setattr('csv.DictReader', FakeDictReader)
     data = calc.load_data('data/health_data.csv')
-    assert "Error converting numerical value(weight) at line 1" in capsys.readouterr().out
+    assert "Error converting numerical value(weight) at record 1" in capsys.readouterr().out
     assert len(data) == 0
 
 def test_load_data_when_period_is_neither_morning_nor_evening(capsys, monkeypatch):
@@ -159,7 +159,7 @@ def test_load_data_when_period_is_neither_morning_nor_evening(capsys, monkeypatc
     FakeDictReader.set_test_data(fake_data)
     monkeypatch.setattr('csv.DictReader', FakeDictReader)
     data = calc.load_data('data/health_data.csv')
-    assert "Invalid period: afternoon at line 1" in capsys.readouterr().out
+    assert "Invalid period: afternoon at record 1" in capsys.readouterr().out
     assert len(data) == 0
 
 def test_load_data_when_the_file_is_not_found(capsys, monkeypatch):
