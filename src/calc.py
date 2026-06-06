@@ -11,37 +11,34 @@ def load_data(file_path: str) -> list[dict]:
             reader = csv.DictReader(csvfile)
             data = list(reader)
             required_columns = {'date', 'time', 'period', 'systolic', 'diastolic', 'weight'}
+            return_data = []
             for index, row in enumerate(data):
                 if len(required_columns.difference(row.keys())) > 0:
                     print(f"Required columns are missing at line {index + 1}")
-                    data.pop(index)
                     continue
                 if 'systolic' in row:
                     try:
                         row['systolic'] = int(row['systolic'])
                     except ValueError:
                         print(f"Error converting numerical value(systolic) at line {index + 1}")
-                        data.pop(index)
                         continue
                 if 'diastolic' in row:
                     try:
                         row['diastolic'] = int(row['diastolic'])
                     except ValueError:
                         print(f"Error converting numerical value(diastolic) at line {index + 1}")
-                        data.pop(index)
                         continue
                 if 'weight' in row:
                     try:
                         row['weight'] = float(row['weight'])
                     except ValueError:
                         print(f"Error converting numerical value(weight) at line {index + 1}")
-                        data.pop(index)
                         continue
                 if 'period' in row and row['period'] not in ['morning', 'evening']:
                     print(f"Invalid period: {row['period']} at line {index + 1}")
-                    data.pop(index)
                     continue
-            return data
+                return_data.append(row)
+            return return_data
     except FileNotFoundError:
         print(f"File not found: {file_path}")
         return []
@@ -51,10 +48,7 @@ def load_data(file_path: str) -> list[dict]:
 
 def is_data_empty(data: list[dict]) -> bool:
     '''Check if the data list is empty'''
-    if len(data) == 0:
-        return True
-    else:
-        return False
+    return len(data) == 0
 
 def filter_data_by_period(data: list[dict], period: str) -> list[dict]:
     '''Filter data by period
